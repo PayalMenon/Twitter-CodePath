@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <ImageView
+        android:id="@+id/iv_new_profileImage"
+        android:layout_width="@dimen/imageWidth"
+        android:layout_height="@dimen/imageHeight"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="@dimen/newTweetMargin"
+        android:layout_marginTop="@dimen/newTweetMargin"
+        android:scaleType="fitXY" />
+
+    <EditText
+        android:id="@+id/et_tweet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_new_profileImage"
+        android:layout_margin="@dimen/newTweetMargin"
+        android:hint="@string/tweet_hint"
+        android:textColor="@android:color/black"
+        android:textColorHint="@color/colorTextLightGrey"
+        android:textSize="@dimen/new_tweet_text_size" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/bt_tweet"
+        android:background="@color/colorTextLightGrey"
+        android:layout_margin="@dimen/newTweetMargin" />
+
+    <Button
+        android:id="@+id/bt_tweet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/newTweetButtonMarginRight"
+        android:layout_marginBottom="100dp"
+        android:background="@color/colorTextRed"
+        android:text="@string/button_tweet"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/tweet_text_size" />
+
+
+</RelativeLayout>

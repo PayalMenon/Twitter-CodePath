@@ -16,14 +16,14 @@ import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import codepath.twitter.android.example.com.twitter.Application;
+import codepath.twitter.android.example.com.twitter.R;
+import codepath.twitter.android.example.com.twitter.fragments.NewTweetFragment;
+import codepath.twitter.android.example.com.twitter.fragments.TweetFragment;
+import codepath.twitter.android.example.com.twitter.models.Tweet;
+import codepath.twitter.android.example.com.twitter.restClient.TwitterRestClient;
+import codepath.twitter.android.example.com.twitter.utils.Constants;
 import cz.msebera.android.httpclient.Header;
-import twitter.android.example.com.twitter.Application;
-import twitter.android.example.com.twitter.R;
-import twitter.android.example.com.twitter.fragments.NewTweetFragment;
-import twitter.android.example.com.twitter.fragments.TweetFragment;
-import twitter.android.example.com.twitter.models.Tweet;
-import twitter.android.example.com.twitter.restClient.TwitterRestClient;
-import twitter.android.example.com.twitter.utils.Constants;
 
 public class TweetsActivity extends AppCompatActivity {
 

@@ -7,8 +7,9 @@ import android.view.View;
 
 import com.codepath.oauth.OAuthLoginActionBarActivity;
 
-import twitter.android.example.com.twitter.R;
-import twitter.android.example.com.twitter.restClient.TwitterRestClient;
+import codepath.twitter.android.example.com.twitter.R;
+import codepath.twitter.android.example.com.twitter.restClient.TwitterRestClient;
+
 
 public class LoginActivity extends OAuthLoginActionBarActivity<TwitterRestClient> {
 

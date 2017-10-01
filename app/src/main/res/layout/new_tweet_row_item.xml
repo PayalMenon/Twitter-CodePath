@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_new_tweet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/tweetMarginLeft"
+        android:layout_marginRight="@dimen/tweetMarginRight"
+        android:textSize="@dimen/tweet_text_size"
+        android:textColor="@android:color/black" />
+
+</RelativeLayout>

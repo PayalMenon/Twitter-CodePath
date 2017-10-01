@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/tweetMarginTop"
+    android:layout_marginLeft="@dimen/cardMarginLeftRight"
+    android:layout_marginRight="@dimen/cardMarginLeftRight"
+    android:layout_marginTop="@dimen/tweetMarginTop"
+    card_view:cardCornerRadius="@dimen/cardCorberRadius"
+    card_view:cardElevation="@dimen/cardElevation">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_profileImage"
+            android:layout_width="@dimen/imageWidth"
+            android:layout_height="@dimen/imageHeight"
+            android:layout_marginLeft="@dimen/tweetMarginLeft"
+            android:layout_marginTop="@dimen/tweetMarginTop"
+            android:scaleType="fitXY" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/tweetMarginLeft"
+            android:layout_marginTop="@dimen/tweetMarginTop"
+            android:layout_toRightOf="@id/iv_profileImage"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/tweet_text_size"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/tweetMarginLeft"
+            android:layout_marginTop="@dimen/tweetMarginTop"
+            android:layout_toRightOf="@id/tv_name"
+            android:textColor="@color/colorTextLightGrey"
+            android:textSize="@dimen/tweet_text_size" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/tweetMarginRight"
+            android:layout_marginTop="@dimen/tweetMarginTop"
+            android:textColor="@color/colorTextLightGrey"
+            android:textSize="@dimen/tweet_text_size" />
+
+        <TextView
+            android:id="@+id/tv_tweet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_username"
+            android:layout_marginBottom="@dimen/tweetMarginTop"
+            android:layout_marginLeft="@dimen/tweetMarginLeft"
+            android:layout_marginTop="@dimen/tweetMarginTop"
+            android:layout_toRightOf="@id/iv_profileImage"
+            android:textColor="@android:color/black" />
+
+        <ImageView
+            android:id="@+id/iv_bannerImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_tweet"
+            android:layout_marginLeft="@dimen/tweetMarginLeft"
+            android:layout_marginRight="@dimen/tweetMarginRight"
+            android:scaleType="fitXY" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_bannerImage"
+            android:layout_marginLeft="@dimen/tweetMarginLeft"
+            android:layout_toRightOf="@id/iv_profileImage">
+
+            <TextView
+                android:id="@+id/tv_reply"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/tweetMarginLeft"
+                android:textColor="@color/colorTextGrey"
+                android:textSize="@dimen/tweet_update_text_size" />
+
+            <TextView
+                android:id="@+id/tv_retweet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:drawableLeft="@drawable/ic_retweet"
+                android:drawablePadding="@dimen/drawablePadding"
+                android:textColor="@color/colorTextGrey"
+                android:textSize="@dimen/tweet_update_text_size" />
+
+            <TextView
+                android:id="@+id/tv_favorite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/tweetMarginRight"
+                android:drawableLeft="@drawable/ic_favorite"
+                android:drawablePadding="@dimen/drawablePadding"
+                android:textColor="@color/colorTextGrey"
+                android:textSize="@dimen/tweet_update_text_size" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

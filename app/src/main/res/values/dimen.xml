@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="tweetMarginLeft">5dp</dimen>
+    <dimen name="tweetMarginRight">15dp</dimen>
+    <dimen name="tweetMarginTop">5dp</dimen>
+    <dimen name="newTweetMargin">15dp</dimen>
+    <dimen name="cardCorberRadius">4dp</dimen>
+    <dimen name="cardElevation">5dp</dimen>
+    <dimen name="cardMarginLeftRight">10dp</dimen>
+    <dimen name="imageWidth">60dp</dimen>
+    <dimen name="imageHeight">60dp</dimen>
+    <dimen name="drawablePadding">10dp</dimen>
+    <dimen name="newTweetButtonMarginRight">30dp</dimen>
+
+    <dimen name="tweet_text_size">15sp</dimen>
+    <dimen name="new_tweet_text_size">18sp</dimen>
+    <dimen name="tweet_update_text_size">12sp</dimen>
+</resources>
