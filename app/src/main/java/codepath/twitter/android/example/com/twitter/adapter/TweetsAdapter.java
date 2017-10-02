@@ -82,15 +82,6 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.TweetsHold
                     }
                 });
 
-        /*if(tweet.user.profileBannerImageUrl != null) {
-            Glide.with(mContext).
-                    load(tweet.user.profileBannerImageUrl).
-                    asBitmap().
-                    centerCrop().
-                    placeholder(R.drawable.ic_tweet).
-                    into(holder.bannerImageView);
-        }*/
-
     }
 
     @Override
