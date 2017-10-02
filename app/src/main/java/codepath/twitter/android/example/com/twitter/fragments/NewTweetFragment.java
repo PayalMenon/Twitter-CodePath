@@ -1,13 +1,20 @@
 package codepath.twitter.android.example.com.twitter.fragments;
 
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.view.Display;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -30,10 +37,10 @@ import codepath.twitter.android.example.com.twitter.models.User;
 import codepath.twitter.android.example.com.twitter.restClient.TwitterRestClient;
 import cz.msebera.android.httpclient.Header;
 
-public class NewTweetFragment extends Fragment {
+public class NewTweetFragment extends DialogFragment {
 
     @BindView(R.id.bt_tweet)
-    Button mSendTweet;
+    FloatingActionButton mSendTweet;
     @BindView(R.id.et_tweet)
     EditText mAddNewTweet;
     @BindView(R.id.iv_new_profileImage)
@@ -72,7 +79,16 @@ public class NewTweetFragment extends Fragment {
                 ((TweetsActivity) getActivity()).addTweet(tweet);
             }
         });
-        ((TweetsActivity) getActivity()).getSupportActionBar().hide();
+    }
+
+    public void onResume() {
+        Window window = getDialog().getWindow();
+        Point size = new Point();
+        Display display = window.getWindowManager().getDefaultDisplay();
+        display.getSize(size);
+        window.setLayout((int) (size.x * 0.75), (int) (size.y * 0.65));
+        window.setGravity(Gravity.CENTER);
+        super.onResume();
     }
 
     private void getSelfInformation() {

@@ -61,10 +61,10 @@ public class TweetsActivity extends AppCompatActivity {
             FragmentTransaction transaction = manager.beginTransaction();
             NewTweetFragment fragment = new NewTweetFragment();
 
-
-            transaction.addToBackStack(Constants.TWEET_FRAGMENT);
+            fragment.show(manager, Constants.NEW_TWEET_FRAGMENT);
+            /*transaction.addToBackStack(Constants.TWEET_FRAGMENT);
             transaction.replace(R.id.fc_list, fragment, Constants.NEW_TWEET_FRAGMENT);
-            transaction.commit();
+            transaction.commit();*/
             return true;
         }
 
