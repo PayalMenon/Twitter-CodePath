@@ -1,8 +1,10 @@
 package codepath.twitter.android.example.com.twitter.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -29,6 +31,8 @@ public class TweetsActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar)
     Toolbar mActionBar;
+    @BindView(R.id.sl_tweetSwipeLayout)
+    SwipeRefreshLayout mSwipeLayout;
 
     private TweetFragmentListener mTweetFragmentListener;
 
@@ -40,7 +44,7 @@ public class TweetsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         setSupportActionBar(mActionBar);
-
+        setSwipeRefresh();
         addListFragment();
     }
 
@@ -58,13 +62,9 @@ public class TweetsActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.action_tweet) {
 
             FragmentManager manager = getSupportFragmentManager();
-            FragmentTransaction transaction = manager.beginTransaction();
             NewTweetFragment fragment = new NewTweetFragment();
 
             fragment.show(manager, Constants.NEW_TWEET_FRAGMENT);
-            /*transaction.addToBackStack(Constants.TWEET_FRAGMENT);
-            transaction.replace(R.id.fc_list, fragment, Constants.NEW_TWEET_FRAGMENT);
-            transaction.commit();*/
             return true;
         }
 
@@ -78,7 +78,6 @@ public class TweetsActivity extends AppCompatActivity {
         if (isFinishing()) {
 
             FragmentManager manager = getSupportFragmentManager();
-            FragmentTransaction transaction = manager.beginTransaction();
 
             TweetFragment listFragment = (TweetFragment) manager.findFragmentByTag(Constants.TWEET_FRAGMENT);
             manager.beginTransaction().remove(listFragment).commit();
@@ -88,6 +87,24 @@ public class TweetsActivity extends AppCompatActivity {
     public void setTweetFragmentListener(TweetFragmentListener listener) {
 
         this.mTweetFragmentListener = listener;
+    }
+
+    private void setSwipeRefresh() {
+        int colorGrey = getResources().getColor(R.color.colorTextGrey);
+        int colorRed = getResources().getColor(R.color.colorTextRed);
+        mSwipeLayout.setColorSchemeColors(colorRed);
+        mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                FragmentManager manager = getSupportFragmentManager();
+                TweetFragment fragment = (TweetFragment) manager.findFragmentByTag(Constants.TWEET_FRAGMENT);
+                if(fragment.mTweetsList.size() > 0) {
+                    long sinceId = fragment.mTweetsList.get(0).uid;
+                    fragment.refreshTimeLineData(sinceId, 0);
+                }
+                mSwipeLayout.setRefreshing(false);
+            }
+        });
     }
 
     private void addListFragment() {

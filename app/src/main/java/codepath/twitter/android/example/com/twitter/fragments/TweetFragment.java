@@ -1,5 +1,6 @@
 package codepath.twitter.android.example.com.twitter.fragments;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -35,10 +36,25 @@ public class TweetFragment extends Fragment implements TweetsActivity.TweetFragm
     RecyclerView mListView;
 
     TweetsAdapter mAdapter;
-    LinearLayoutManager mLayoutManager;
-    List<Tweet> mTweetsList = new ArrayList<>();
+    WrapContentLinearLayoutManager mLayoutManager;
+    public List<Tweet> mTweetsList = new ArrayList<>();
 
     TwitterRestClient mClient;
+
+    public class WrapContentLinearLayoutManager extends LinearLayoutManager {
+        public WrapContentLinearLayoutManager(Context context) {
+            super(context);
+        }
+
+        @Override
+        public void onLayoutChildren(RecyclerView.Recycler recycler, RecyclerView.State state) {
+            try {
+                super.onLayoutChildren(recycler, state);
+            } catch (IndexOutOfBoundsException e) {
+                Log.e("Error", "IndexOutOfBoundsException in RecyclerView happens");
+            }
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,7 +81,7 @@ public class TweetFragment extends Fragment implements TweetsActivity.TweetFragm
         mAdapter = new TweetsAdapter(getActivity(), mTweetsList);
         mListView.setAdapter(mAdapter);
 
-        mLayoutManager = new LinearLayoutManager(getActivity());
+        mLayoutManager = new WrapContentLinearLayoutManager(getActivity());
         mListView.setLayoutManager(mLayoutManager);
 
         ((TweetsActivity) getActivity()).getSupportActionBar().show();
@@ -83,7 +99,7 @@ public class TweetFragment extends Fragment implements TweetsActivity.TweetFragm
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 int currentPosition = mLayoutManager.findLastCompletelyVisibleItemPosition();
-                if (currentPosition == (mTweetsList.size() - 1)) {
+                if (mTweetsList.size() > 0 && currentPosition == (mTweetsList.size() - 1)) {
                     Tweet tweet = mTweetsList.get(mTweetsList.size() - 1);
                     populateTImelineData(0, (tweet.uid - 1));
                 }
@@ -99,21 +115,29 @@ public class TweetFragment extends Fragment implements TweetsActivity.TweetFragm
         mLayoutManager.scrollToPositionWithOffset(0, 0);
     }
 
-    private void populateTImelineData(long sinceId, long maxId) {
+    public void refreshTimeLineData(long sinceId, long maxId) {
+        //mTweetsList.clear();
+        //mAdapter.updateTweetList(mTweetsList);
+        populateTImelineData(sinceId, maxId);
+    }
+
+    private void populateTImelineData(final long sinceId, long maxId) {
         mClient.getHomeTimeline(sinceId, maxId, new JsonHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 for (int i = 0; i < response.length(); i++) {
                     try {
+                        System.out.println(mTweetsList.size());
                         Tweet tweet = Tweet.fromJSON(response.getJSONObject(i));
                         mTweetsList.add(tweet);
-                        mAdapter.updateTweetList(mTweetsList);
-                        mAdapter.notifyItemInserted(mTweetsList.size() - 1);
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
+                mAdapter.updateTweetList(mTweetsList);
+                mAdapter.notifyDataSetChanged();
             }
 
             @Override

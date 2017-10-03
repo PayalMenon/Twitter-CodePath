@@ -18,20 +18,27 @@
             layout="@layout/toolbar" />
     </android.support.design.widget.AppBarLayout>
 
-    <FrameLayout
-        android:id="@+id/fc_list"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/sl_tweetSwipeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_marginTop="?android:attr/actionBarSize">
 
-        <ProgressBar
-            android:id="@+id/progress_Spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:indeterminateTint="@color/colorBackgroundToolbar"
-            android:indeterminateTintMode="src_atop"
-            android:visibility="gone"/>
-    </FrameLayout>
+        <FrameLayout
+            android:id="@+id/fc_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <ProgressBar
+                android:id="@+id/progress_Spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminateTint="@color/colorBackgroundToolbar"
+                android:indeterminateTintMode="src_atop"
+                android:visibility="gone" />
+        </FrameLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </android.support.design.widget.CoordinatorLayout>
