@@ -40,7 +40,7 @@
         android:layout_margin="@dimen/newTweetButtonMarginRight"
         android:clickable="true"
         android:elevation="@dimen/floatingButtonElevation"
-        android:src="@drawable/save" />
+        android:src="@drawable/ic_save" />
 
 
 </android.support.design.widget.CoordinatorLayout>

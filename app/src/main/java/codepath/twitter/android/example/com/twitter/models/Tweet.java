@@ -27,6 +27,7 @@ public class Tweet {
         tweet.retweeted = jsonObject.getBoolean("retweeted");
         tweet.favoriteCount = jsonObject.getInt("favorite_count");
 
+        // entities & extended_entities
         return tweet;
     }
 }

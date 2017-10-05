@@ -10,4 +10,18 @@
         app:showAsAction="always">
     </item>
 
+    <item
+        android:title="@string/menu_profileInfo"
+        android:id="@+id/action_profileInfo"
+        android:icon="@drawable/ic_account"
+        app:showAsAction="always">
+    </item>
+
+    <item
+        android:title="@string/menu_search"
+        android:id="@+id/action_search"
+        android:icon="@drawable/ic_search"
+        app:showAsAction="never">
+    </item>
+
 </menu>

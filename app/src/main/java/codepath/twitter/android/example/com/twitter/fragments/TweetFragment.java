@@ -78,7 +78,7 @@ public class TweetFragment extends Fragment implements TweetsActivity.TweetFragm
 
         super.onActivityCreated(savedInstanceState);
 
-        mAdapter = new TweetsAdapter(getActivity(), mTweetsList);
+        mAdapter = new TweetsAdapter(mTweetsList, this);
         mListView.setAdapter(mAdapter);
 
         mLayoutManager = new WrapContentLinearLayoutManager(getActivity());
@@ -115,9 +115,12 @@ public class TweetFragment extends Fragment implements TweetsActivity.TweetFragm
         mLayoutManager.scrollToPositionWithOffset(0, 0);
     }
 
+    @Override
+    public void onTweetClicked(int position) {
+
+    }
+
     public void refreshTimeLineData(long sinceId, long maxId) {
-        //mTweetsList.clear();
-        //mAdapter.updateTweetList(mTweetsList);
         populateTImelineData(sinceId, maxId);
     }
 

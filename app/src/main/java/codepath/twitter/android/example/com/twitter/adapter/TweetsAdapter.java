@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,28 +23,31 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import codepath.twitter.android.example.com.twitter.R;
+import codepath.twitter.android.example.com.twitter.activity.TweetsActivity;
 import codepath.twitter.android.example.com.twitter.models.Tweet;
 
 public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.TweetsHolder> {
 
     private Context mContext;
     private List<Tweet> mTweetsList;
+    private TweetsActivity.TweetFragmentListener mListener;
     private SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss Z yyyy");
 
-    public TweetsAdapter(Context context, List<Tweet> tweetsList) {
-        mContext = context;
+    public TweetsAdapter(List<Tweet> tweetsList, TweetsActivity.TweetFragmentListener listener) {
         mTweetsList = tweetsList;
+        mListener = listener;
     }
 
     @Override
     public TweetsHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
+        mContext = parent.getContext();
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tweet_row_item, parent, false);
         return new TweetsHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final TweetsHolder holder, int position) {
+    public void onBindViewHolder(final TweetsHolder holder, final int position) {
         Tweet tweet = mTweetsList.get(position);
 
         holder.nameView.setText(tweet.user.name);
@@ -81,6 +85,13 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.TweetsHold
                         holder.profileImage.setImageDrawable(circularBitmapDrawable);
                     }
                 });
+
+        holder.tweetContainerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onTweetClicked(position);
+            }
+        });
 
     }
 
@@ -153,6 +164,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.TweetsHold
         TextView retweetView;
         @BindView(R.id.iv_bannerImage)
         ImageView bannerImageView;
+        @BindView(R.id.item_card_view)
+        CardView tweetContainerView;
 
         public TweetsHolder(View itemView) {
             super(itemView);

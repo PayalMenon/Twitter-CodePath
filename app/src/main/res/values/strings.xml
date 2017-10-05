@@ -4,6 +4,10 @@
     <string name="intent_scheme">oauth</string>
     <string name="intent_host">cprest</string>
     <string name="menu_tweet">Tweet</string>
+    <string name="menu_profileInfo">Profile Info</string>
+    <string name="menu_search">Search</string>
     <string name="button_tweet">Tweet</string>
     <string name="tweet_hint">What are you thinking!!</string>
+    <string name="followers"><b>%d</b> Followers</string>
+    <string name="following"><b>%d</b> Followings</string>
 </resources>

@@ -22,6 +22,7 @@ import codepath.twitter.android.example.com.twitter.Application;
 import codepath.twitter.android.example.com.twitter.R;
 import codepath.twitter.android.example.com.twitter.fragments.NewTweetFragment;
 import codepath.twitter.android.example.com.twitter.fragments.TweetFragment;
+import codepath.twitter.android.example.com.twitter.fragments.UserFragment;
 import codepath.twitter.android.example.com.twitter.models.Tweet;
 import codepath.twitter.android.example.com.twitter.restClient.TwitterRestClient;
 import codepath.twitter.android.example.com.twitter.utils.Constants;
@@ -66,6 +67,15 @@ public class TweetsActivity extends AppCompatActivity {
 
             fragment.show(manager, Constants.NEW_TWEET_FRAGMENT);
             return true;
+        }
+        if(item.getItemId() == R.id.action_profileInfo) {
+            FragmentManager manager = getSupportFragmentManager();
+            FragmentTransaction transaction = manager.beginTransaction();
+            UserFragment fragment = new UserFragment();
+
+            transaction.addToBackStack(Constants.TWEET_FRAGMENT).
+                    replace(R.id.fc_list, fragment, Constants.USER_FRAGMENT).
+                    commit();
         }
 
         return super.onOptionsItemSelected(item);
@@ -150,6 +160,7 @@ public class TweetsActivity extends AppCompatActivity {
     public interface TweetFragmentListener {
 
         void addTweetandRefresh(Tweet newTweet);
+        void onTweetClicked(int position);
 
     }
 }
