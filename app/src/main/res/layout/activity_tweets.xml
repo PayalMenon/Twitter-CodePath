@@ -7,38 +7,67 @@
     android:fitsSystemWindows="true"
     tools:context="twitter.android.example.com.twitter.activity.TweetsActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
-
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/toolbar" />
-    </android.support.design.widget.AppBarLayout>
-
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/sl_tweetSwipeLayout"
+    <LinearLayout
+        android:id="@+id/ll_appbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?android:attr/actionBarSize">
+        android:orientation="vertical">
 
-        <FrameLayout
-            android:id="@+id/fc_list"
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/toolbar" />
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/sliding_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:tabBackground="@color/colorToolbarBackground"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@color/colorTextRed"
+            app:tabIndicatorHeight="2dp"
+            app:tabMode="fixed" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_tweetPager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></android.support.v4.view.ViewPager>
+
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/sl_tweetSwipeLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            android:layout_marginTop="?android:attr/actionBarSize"
+            android:visibility="gone">
 
-            <ProgressBar
-                android:id="@+id/progress_Spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:indeterminateTint="@color/colorBackgroundToolbar"
-                android:indeterminateTintMode="src_atop"
-                android:visibility="gone" />
-        </FrameLayout>
-    </android.support.v4.widget.SwipeRefreshLayout>
+            <FrameLayout
+                android:id="@+id/fc_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ProgressBar
+                    android:id="@+id/progress_Spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:indeterminateTint="@color/colorBackgroundToolbar"
+                    android:indeterminateTintMode="src_atop"
+                    android:visibility="gone" />
+            </FrameLayout>
+        </android.support.v4.widget.SwipeRefreshLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </android.support.design.widget.CoordinatorLayout>

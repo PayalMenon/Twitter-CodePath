@@ -1,9 +1,14 @@
 package codepath.twitter.android.example.com.twitter.activity;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,6 +16,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -20,6 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import codepath.twitter.android.example.com.twitter.Application;
 import codepath.twitter.android.example.com.twitter.R;
+import codepath.twitter.android.example.com.twitter.fragments.MentionsFragment;
 import codepath.twitter.android.example.com.twitter.fragments.NewTweetFragment;
 import codepath.twitter.android.example.com.twitter.fragments.TweetFragment;
 import codepath.twitter.android.example.com.twitter.fragments.UserFragment;
@@ -34,6 +43,17 @@ public class TweetsActivity extends AppCompatActivity {
     Toolbar mActionBar;
     @BindView(R.id.sl_tweetSwipeLayout)
     SwipeRefreshLayout mSwipeLayout;
+    @BindView(R.id.vp_tweetPager)
+    ViewPager mViewPager;
+    @BindView(R.id.sliding_tabs)
+    TabLayout mtabLayout;
+    @BindView(R.id.ll_appbar)
+    LinearLayout mAppbarLayout;
+    @BindView(R.id.fl_fragment)
+    FrameLayout mFragmentLayout;
+
+    PagerAdapter mPagerAdapter;
+
 
     private TweetFragmentListener mTweetFragmentListener;
 
@@ -46,7 +66,13 @@ public class TweetsActivity extends AppCompatActivity {
 
         setSupportActionBar(mActionBar);
         setSwipeRefresh();
-        addListFragment();
+
+        mPagerAdapter = new PagerAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(mPagerAdapter);
+
+        mtabLayout.setupWithViewPager(mViewPager);
+        mFragmentLayout.setVisibility(View.GONE);
+        mAppbarLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -69,29 +95,18 @@ public class TweetsActivity extends AppCompatActivity {
             return true;
         }
         if(item.getItemId() == R.id.action_profileInfo) {
+
+            mFragmentLayout.setVisibility(View.VISIBLE);
+            mAppbarLayout.setVisibility(View.GONE);
             FragmentManager manager = getSupportFragmentManager();
             FragmentTransaction transaction = manager.beginTransaction();
             UserFragment fragment = new UserFragment();
 
-            transaction.addToBackStack(Constants.TWEET_FRAGMENT).
-                    replace(R.id.fc_list, fragment, Constants.USER_FRAGMENT).
+            transaction.add(R.id.fl_fragment, fragment, Constants.USER_FRAGMENT).
                     commit();
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        if (isFinishing()) {
-
-            FragmentManager manager = getSupportFragmentManager();
-
-            TweetFragment listFragment = (TweetFragment) manager.findFragmentByTag(Constants.TWEET_FRAGMENT);
-            manager.beginTransaction().remove(listFragment).commit();
-        }
     }
 
     public void setTweetFragmentListener(TweetFragmentListener listener) {
@@ -108,7 +123,7 @@ public class TweetsActivity extends AppCompatActivity {
             public void onRefresh() {
                 FragmentManager manager = getSupportFragmentManager();
                 TweetFragment fragment = (TweetFragment) manager.findFragmentByTag(Constants.TWEET_FRAGMENT);
-                if(fragment.mTweetsList.size() > 0) {
+                if(fragment.mTweetsList != null && fragment.mTweetsList.size() > 0) {
                     long sinceId = fragment.mTweetsList.get(0).uid;
                     fragment.refreshTimeLineData(sinceId, 0);
                 }
@@ -117,19 +132,15 @@ public class TweetsActivity extends AppCompatActivity {
         });
     }
 
-    private void addListFragment() {
+    private void addTweetFragment() {
 
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
 
-        TweetFragment fragment = (TweetFragment) manager.findFragmentByTag(Constants.TWEET_FRAGMENT);
+        TweetFragment fragment = new TweetFragment();
+        transaction.add(R.id.fc_list, fragment, Constants.TWEET_FRAGMENT);
+        transaction.commit();
 
-        if (fragment == null) {
-
-            fragment = new TweetFragment();
-            transaction.add(R.id.fc_list, fragment, Constants.TWEET_FRAGMENT);
-            transaction.commit();
-        }
     }
 
     public void addTweet(Tweet tweet) {
@@ -162,5 +173,65 @@ public class TweetsActivity extends AppCompatActivity {
         void addTweetandRefresh(Tweet newTweet);
         void onTweetClicked(int position);
 
+    }
+
+    public static class PagerAdapter extends FragmentPagerAdapter {
+
+        public PagerAdapter(FragmentManager fragmentManager) {
+            super(fragmentManager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+
+            Fragment fragment = null;
+            switch(position) {
+                case 0:
+                    fragment = new TweetFragment();
+                    break;
+
+                case 1:
+                    fragment = new MentionsFragment();
+                    break;
+
+                default:
+                    fragment = new TweetFragment();
+                    break;
+            }
+
+            return fragment;
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            String title = null;
+
+            switch(position) {
+                case 0:
+                    title = Application.getContext().
+                            getResources().
+                            getString(R.string.page_title_home);
+                    break;
+
+                case 1:
+                    title = Application.getContext().
+                            getResources().
+                            getString(R.string.page_title_mentions);
+                    break;
+
+                default:
+                    title = Application.getContext().
+                            getResources().
+                            getString(R.string.page_title_home);
+                    break;
+            }
+
+            return title;
+        }
     }
 }

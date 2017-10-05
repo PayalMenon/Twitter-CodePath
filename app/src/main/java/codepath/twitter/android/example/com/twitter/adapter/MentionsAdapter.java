@@ -15,40 +15,34 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import codepath.twitter.android.example.com.twitter.R;
-import codepath.twitter.android.example.com.twitter.activity.TweetsActivity;
 import codepath.twitter.android.example.com.twitter.models.Tweet;
 import codepath.twitter.android.example.com.twitter.utils.Utils;
 
-public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.TweetsHolder> {
+public class MentionsAdapter extends RecyclerView.Adapter<MentionsAdapter.MentionsViewHolder> {
 
     private Context mContext;
-    private List<Tweet> mTweetsList;
-    private TweetsActivity.TweetFragmentListener mListener;
+    private List<Tweet> mMentionsList;
 
-    public TweetsAdapter(List<Tweet> tweetsList, TweetsActivity.TweetFragmentListener listener) {
-        mTweetsList = tweetsList;
-        mListener = listener;
+    public MentionsAdapter(List<Tweet> list) {
+        this.mMentionsList = list;
     }
 
     @Override
-    public TweetsHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MentionsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         mContext = parent.getContext();
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tweet_row_item, parent, false);
-        return new TweetsHolder(view);
+        return new MentionsViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final TweetsHolder holder, final int position) {
-        Tweet tweet = mTweetsList.get(position);
+    public void onBindViewHolder(final MentionsViewHolder holder, int position) {
+        Tweet tweet = mMentionsList.get(position);
 
         holder.nameView.setText(tweet.user.name);
         holder.usernameView.setText(tweet.user.screenName);
@@ -85,26 +79,18 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.TweetsHold
                         holder.profileImage.setImageDrawable(circularBitmapDrawable);
                     }
                 });
-
-        holder.tweetContainerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mListener.onTweetClicked(position);
-            }
-        });
-
     }
 
     @Override
     public int getItemCount() {
-        return mTweetsList.size();
+        return mMentionsList.size();
     }
 
     public void updateTweetList(List<Tweet> list) {
-        this.mTweetsList = list;
+        this.mMentionsList = list;
     }
 
-    public class TweetsHolder extends RecyclerView.ViewHolder {
+    public class MentionsViewHolder extends RecyclerView.ViewHolder{
 
         @BindView(R.id.tv_name)
         TextView nameView;
@@ -127,7 +113,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.TweetsHold
         @BindView(R.id.item_card_view)
         CardView tweetContainerView;
 
-        public TweetsHolder(View itemView) {
+        public MentionsViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }

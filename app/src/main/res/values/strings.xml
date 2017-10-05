@@ -10,4 +10,6 @@
     <string name="tweet_hint">What are you thinking!!</string>
     <string name="followers"><b>%d</b> Followers</string>
     <string name="following"><b>%d</b> Followings</string>
+    <string name="page_title_home">HOME</string>
+    <string name="page_title_mentions">MENTIONS</string>
 </resources>
