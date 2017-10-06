@@ -20,7 +20,7 @@
             android:layout_width="@dimen/imageWidth"
             android:layout_height="@dimen/imageHeight"
             android:layout_gravity="bottom|left"
-            android:layout_marginLeft="@dimen/tweetMarginRight"
+            android:layout_marginLeft="@dimen/user_margin_left"
             android:scaleType="fitXY"/>
     </FrameLayout>
 
@@ -48,8 +48,8 @@
         android:textColor="@android:color/black"/>
 
     <TextView
-        android:id="@+id/tv_user_followers"
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_user_tagline"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/tv_user_username"
@@ -59,10 +59,21 @@
         android:textColor="@android:color/black"/>
 
     <TextView
+        android:id="@+id/tv_user_followers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/tv_user_tagline"
+        android:layout_marginLeft="@dimen/user_margin_left"
+        android:layout_marginTop="@dimen/user_margin_top"
+        android:textSize="@dimen/tweet_text_size"
+        android:textColor="@android:color/black"/>
+
+    <TextView
         android:id="@+id/tv_user_following"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_user_username"
+        android:layout_below="@id/tv_user_tagline"
         android:layout_marginLeft="@dimen/user_margin_left"
         android:layout_marginTop="@dimen/user_margin_top"
         android:layout_toRightOf="@id/tv_user_followers"

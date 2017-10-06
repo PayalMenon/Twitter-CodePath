@@ -3,6 +3,8 @@ package codepath.twitter.android.example.com.twitter.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.List;
+
 public class Tweet {
 
     public boolean favorited;
@@ -13,6 +15,7 @@ public class Tweet {
     public User user;
     public String body;
     public String createdAt;
+    public List<Media> mediaList;
 
     //deserialize the JSON
     public static Tweet fromJSON(JSONObject jsonObject) throws JSONException {

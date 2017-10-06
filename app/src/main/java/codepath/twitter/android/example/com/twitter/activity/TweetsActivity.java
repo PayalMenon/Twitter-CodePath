@@ -1,6 +1,7 @@
 package codepath.twitter.android.example.com.twitter.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -34,6 +35,7 @@ import codepath.twitter.android.example.com.twitter.fragments.TweetFragment;
 import codepath.twitter.android.example.com.twitter.fragments.UserFragment;
 import codepath.twitter.android.example.com.twitter.models.Tweet;
 import codepath.twitter.android.example.com.twitter.restClient.TwitterRestClient;
+import codepath.twitter.android.example.com.twitter.settings.TwitterSettings;
 import codepath.twitter.android.example.com.twitter.utils.Constants;
 import cz.msebera.android.httpclient.Header;
 
@@ -47,10 +49,6 @@ public class TweetsActivity extends AppCompatActivity {
     ViewPager mViewPager;
     @BindView(R.id.sliding_tabs)
     TabLayout mtabLayout;
-    @BindView(R.id.ll_appbar)
-    LinearLayout mAppbarLayout;
-    @BindView(R.id.fl_fragment)
-    FrameLayout mFragmentLayout;
 
     PagerAdapter mPagerAdapter;
 
@@ -71,8 +69,6 @@ public class TweetsActivity extends AppCompatActivity {
         mViewPager.setAdapter(mPagerAdapter);
 
         mtabLayout.setupWithViewPager(mViewPager);
-        mFragmentLayout.setVisibility(View.GONE);
-        mAppbarLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -96,14 +92,10 @@ public class TweetsActivity extends AppCompatActivity {
         }
         if(item.getItemId() == R.id.action_profileInfo) {
 
-            mFragmentLayout.setVisibility(View.VISIBLE);
-            mAppbarLayout.setVisibility(View.GONE);
-            FragmentManager manager = getSupportFragmentManager();
-            FragmentTransaction transaction = manager.beginTransaction();
-            UserFragment fragment = new UserFragment();
-
-            transaction.add(R.id.fl_fragment, fragment, Constants.USER_FRAGMENT).
-                    commit();
+            Intent userIntent = new Intent(this, UserActivity.class);
+            TwitterSettings settings = TwitterSettings.getInstance();
+            userIntent.putExtra(Constants.BUNDLE_KEY_USERID, settings.getLong(Constants.SELF_USER_ID, 0));
+            startActivity(userIntent);
         }
 
         return super.onOptionsItemSelected(item);

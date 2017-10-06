@@ -102,6 +102,43 @@ public class TwitterRestClient extends OAuthBaseClient {
         client.get(apiUrl, params, handler);
     }
 
+    public void getUserTimelineInformation(long userId, AsyncHttpResponseHandler handler) {
+        String apiUrl = getApiUrl("statuses/user_timeline.json");
+
+        RequestParams params = new RequestParams();
+        params.put("user_id", userId);
+
+        client.get(apiUrl, params, handler);
+    }
+
+    public void getUserMediaInformation(long userId, AsyncHttpResponseHandler handler) {
+        //String apiUrl = getApiUrl("statuses/home_timeline.json");
+        String apiUrl = getApiUrl("collections/list.json");
+
+        RequestParams params = new RequestParams();
+        params.put("user_id", userId);
+
+        client.get(apiUrl, params, handler);
+    }
+
+    public void getFavoritesList(long userId, AsyncHttpResponseHandler handler) {
+        String apiUrl = getApiUrl("favorites/list.json");
+
+        RequestParams params = new RequestParams();
+        params.put("user_id", userId);
+
+        client.get(apiUrl, params, handler);
+    }
+
+    public void getFollowersList(long userId, AsyncHttpResponseHandler handler) {
+        String apiUrl = getApiUrl("followers/list.json");
+
+        RequestParams params = new RequestParams();
+        params.put("user_id", userId);
+
+        client.get(apiUrl, params, handler);
+    }
+
     public void setSelfListener(SelfInformationListener listener) {
         this.mSelfListener = listener;
     }
@@ -119,9 +156,11 @@ public class TwitterRestClient extends OAuthBaseClient {
                     mSettings.setString(Constants.SELF_USERNAME, self.screenName);
                     mSettings.setString(Constants.SELF_PROFILE_IMAGE, self.profileImageUrl);
                     mSettings.setString(Constants.SELF_PROFILE_BANNER, self.profileBannerImageUrl);
+                    mSettings.setString(Constants.SELF_TAGLINE, self.tagLine);
                     mSettings.setBoolean(Constants.SELF_INFO_POPULATED, true);
                     mSettings.setInteger(Constants.SELF_FOLLOWERS, self.followers);
                     mSettings.setInteger(Constants.SELF_FOLLOWINGS, self.followings);
+                    mSettings.setLong(Constants.SELF_USER_ID, self.userId);
 
                     mSelfListener.onSuccess();
                 } catch (JSONException e) {

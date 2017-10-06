@@ -14,6 +14,10 @@ public class Constants {
     public static final String SELF_USERNAME = "username";
     public static final String SELF_FOLLOWERS = "followers";
     public static final String SELF_FOLLOWINGS = "followings";
+    public static final String SELF_TAGLINE = "tagline";
+    public static final String SELF_USER_ID = "user_id";
     public static final String SELF_PROFILE_IMAGE = "profile_iamge";
     public static final String SELF_PROFILE_BANNER = "profile_banner";
+
+    public static final String BUNDLE_KEY_USERID = "userId";
 }

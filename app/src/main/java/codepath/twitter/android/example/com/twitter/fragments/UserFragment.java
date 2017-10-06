@@ -43,6 +43,8 @@ public class UserFragment extends Fragment implements TwitterRestClient.SelfInfo
     TextView profileFollowers;
     @BindView(R.id.tv_user_following)
     TextView profileFollowings;
+    @BindView(R.id.tv_user_tagline)
+    TextView profileTagline;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -82,14 +84,14 @@ public class UserFragment extends Fragment implements TwitterRestClient.SelfInfo
     private void populateViews(){
         profileName.setText(mSettings.getString(Constants.SELF_NAME, null));
         profileUsername.setText(mSettings.getString(Constants.SELF_USERNAME, null));
-
+        profileTagline.setText(mSettings.getString(Constants.SELF_TAGLINE, null));
+        
         String followers = getResources().getString(R.string.followers,
                 mSettings.getInteger(Constants.SELF_FOLLOWERS, 0));
         profileFollowers.setText(followers);
 
         String followings = getResources().getString(R.string.following,
                 mSettings.getInteger(Constants.SELF_FOLLOWINGS, 0));
-
         profileFollowings.setText(followings);
 
         Glide.with(getActivity()).

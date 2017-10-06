@@ -11,7 +11,6 @@ public class User {
     public String screenName;
     public String profileImageUrl;
     public String tagLine;
-
     public String profileBannerImageUrl;
 
     // deserialize json

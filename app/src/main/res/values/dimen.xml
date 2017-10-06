@@ -15,10 +15,12 @@
     <dimen name="drawablePadding">10dp</dimen>
     <dimen name="newTweetButtonMarginRight">30dp</dimen>
     <dimen name="floatingButtonElevation">10dp</dimen>
-    <dimen name="user_margin_left">15dp</dimen>
+    <dimen name="user_margin_left">25dp</dimen>
     <dimen name="user_margin_top">5dp</dimen>
     <dimen name="user_banner_height">150dp</dimen>
     <dimen name="view_pager_padding">5dp</dimen>
+    <dimen name="user_media_height">150dp</dimen>
+    <dimen name="user_media_width">150dp</dimen>
 
     <dimen name="tweet_text_size">15sp</dimen>
     <dimen name="new_tweet_text_size">18sp</dimen>

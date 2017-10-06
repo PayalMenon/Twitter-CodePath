@@ -15,6 +15,7 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".activity.TweetsActivity" />
+        <activity android:name=".activity.UserActivity" />
 
         <activity
             android:name=".activity.LoginActivity"

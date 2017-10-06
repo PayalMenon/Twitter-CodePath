@@ -12,4 +12,7 @@
     <string name="following"><b>%d</b> Followings</string>
     <string name="page_title_home">HOME</string>
     <string name="page_title_mentions">MENTIONS</string>
+    <string name="page_title_tweets">TWEETS</string>
+    <string name="page_title_followers">FOLLOWERS</string>
+    <string name="page_title_favorite">FAVORITE</string>
 </resources>

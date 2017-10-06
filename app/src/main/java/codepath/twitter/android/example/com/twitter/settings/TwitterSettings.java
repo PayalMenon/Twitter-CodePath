@@ -39,6 +39,11 @@ public class TwitterSettings {
         mEditor.commit();
     }
 
+    public void setLong(String key, long value) {
+        mEditor.putLong(key, value);
+        mEditor.commit();
+    }
+
     public String getString(String key, String defaultVlaue) {
         return mPreferences.getString(key, defaultVlaue);
     }
@@ -49,6 +54,10 @@ public class TwitterSettings {
 
     public Boolean getBoolean(String key, Boolean defaultVlaue) {
         return mPreferences.getBoolean(key, defaultVlaue);
+    }
+
+    public long getLong(String key, long defaultVlaue) {
+        return mPreferences.getLong(key, defaultVlaue);
     }
 
     public void clearAll() {
