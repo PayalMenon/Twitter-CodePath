@@ -6,6 +6,7 @@
     <dimen name="tweetMarginLeft">5dp</dimen>
     <dimen name="tweetMarginRight">15dp</dimen>
     <dimen name="tweetMarginTop">5dp</dimen>
+    <dimen name="tweetBannerImageHeight">175dp</dimen>
     <dimen name="newTweetMargin">15dp</dimen>
     <dimen name="cardCorberRadius">4dp</dimen>
     <dimen name="cardElevation">5dp</dimen>

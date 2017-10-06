@@ -68,10 +68,11 @@
         <ImageView
             android:id="@+id/iv_bannerImage"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/tweetBannerImageHeight"
             android:layout_below="@id/tv_tweet"
-            android:layout_marginLeft="@dimen/tweetMarginLeft"
+            android:layout_marginLeft="@dimen/tweetMarginRight"
             android:layout_marginRight="@dimen/tweetMarginRight"
+            android:layout_marginTop="@dimen/tweetMarginTop"
             android:scaleType="fitXY" />
 
         <RelativeLayout
@@ -79,6 +80,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/iv_bannerImage"
             android:layout_marginLeft="@dimen/tweetMarginLeft"
+            android:layout_marginTop="@dimen/tweetMarginTop"
+            android:layout_marginBottom="@dimen/tweetMarginTop"
             android:layout_toRightOf="@id/iv_profileImage">
 
             <TextView

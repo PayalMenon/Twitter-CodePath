@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import butterknife.BindView;
@@ -33,6 +34,7 @@ import codepath.twitter.android.example.com.twitter.fragments.MentionsFragment;
 import codepath.twitter.android.example.com.twitter.fragments.NewTweetFragment;
 import codepath.twitter.android.example.com.twitter.fragments.TweetFragment;
 import codepath.twitter.android.example.com.twitter.fragments.UserFragment;
+import codepath.twitter.android.example.com.twitter.models.Self;
 import codepath.twitter.android.example.com.twitter.models.Tweet;
 import codepath.twitter.android.example.com.twitter.restClient.TwitterRestClient;
 import codepath.twitter.android.example.com.twitter.settings.TwitterSettings;
@@ -50,9 +52,7 @@ public class TweetsActivity extends AppCompatActivity {
     @BindView(R.id.sliding_tabs)
     TabLayout mtabLayout;
 
-    PagerAdapter mPagerAdapter;
-
-
+    private PagerAdapter mPagerAdapter;
     private TweetFragmentListener mTweetFragmentListener;
 
     @Override
@@ -69,6 +69,7 @@ public class TweetsActivity extends AppCompatActivity {
         mViewPager.setAdapter(mPagerAdapter);
 
         mtabLayout.setupWithViewPager(mViewPager);
+        getSelfInformation();
     }
 
     @Override
@@ -107,7 +108,6 @@ public class TweetsActivity extends AppCompatActivity {
     }
 
     private void setSwipeRefresh() {
-        int colorGrey = getResources().getColor(R.color.colorTextGrey);
         int colorRed = getResources().getColor(R.color.colorTextRed);
         mSwipeLayout.setColorSchemeColors(colorRed);
         mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -165,6 +165,30 @@ public class TweetsActivity extends AppCompatActivity {
         void addTweetandRefresh(Tweet newTweet);
         void onTweetClicked(int position);
 
+    }
+
+    private void getSelfInformation() {
+        TwitterRestClient client = new TwitterRestClient(this);
+        client.getAccountInformation(new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                try {
+                    Self self = Self.fromJson(response);
+                    TwitterSettings settings = TwitterSettings.getInstance();
+                    settings.setLong(Constants.SELF_USER_ID, self.userId);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                Log.d("TwitterApp" , responseString);
+            }
+        });
     }
 
     public static class PagerAdapter extends FragmentPagerAdapter {
