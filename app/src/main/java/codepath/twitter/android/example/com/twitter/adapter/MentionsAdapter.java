@@ -80,7 +80,7 @@ public class MentionsAdapter extends RecyclerView.Adapter<MentionsAdapter.Mentio
                     }
                 });
 
-        if (tweet.imageList.size() > 0) {
+        if (tweet.imageList != null && tweet.imageList.size() > 0) {
             holder.bannerImageView.setVisibility(View.VISIBLE);
             System.out.println("imagelist size = " + tweet.imageList.size());
             Glide.with(mContext).

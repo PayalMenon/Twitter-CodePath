@@ -9,11 +9,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <View
+        android:id="@+id/view_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/fl_info_layout"
+        android:layout_marginTop="@dimen/tweetMarginTop"
+        android:background="@color/colorTextGrey"/>
+
     <LinearLayout
         android:id="@+id/fl_data_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/fl_info_layout"
+        android:layout_below="@id/view_divider"
+        android:layout_marginTop="@dimen/tweetMarginTop"
         android:orientation="vertical">
 
         <android.support.design.widget.TabLayout

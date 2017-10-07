@@ -93,13 +93,21 @@ public class TweetsActivity extends AppCompatActivity {
         }
         if(item.getItemId() == R.id.action_profileInfo) {
 
-            Intent userIntent = new Intent(this, UserActivity.class);
             TwitterSettings settings = TwitterSettings.getInstance();
-            userIntent.putExtra(Constants.BUNDLE_KEY_USERID, settings.getLong(Constants.SELF_USER_ID, 0));
-            startActivity(userIntent);
+            launchUserActivity(settings.getLong(Constants.SELF_USER_ID, 0),
+                    Constants.USER_TYPE_PROFILE, null);
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void launchUserActivity(long userId, String userType, String userScreenName) {
+
+        Intent userIntent = new Intent(this, UserActivity.class);
+        userIntent.putExtra(Constants.BUNDLE_KEY_USERID, userId);
+        userIntent.putExtra(Constants.BUNDLE_KEY_USERTYPE, userType);
+        userIntent.putExtra(Constants.BUNDLE_KEY_USER_SCREENNAME, userScreenName);
+        startActivity(userIntent);
     }
 
     public void setTweetFragmentListener(TweetFragmentListener listener) {

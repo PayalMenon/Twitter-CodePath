@@ -9,15 +9,13 @@ public class Constants {
     public static final String TWEET_SETTINGS = "tweet_settings";
     public static final String USER_FRAGMENT = "user_fragment";
 
-    public static final String SELF_INFO_POPULATED = "self_info_populated";
-    public static final String SELF_NAME = "name";
-    public static final String SELF_USERNAME = "username";
-    public static final String SELF_FOLLOWERS = "followers";
-    public static final String SELF_FOLLOWINGS = "followings";
-    public static final String SELF_TAGLINE = "tagline";
+    public static final String SELF_USER_TYPE = "user_type";
     public static final String SELF_USER_ID = "user_id";
-    public static final String SELF_PROFILE_IMAGE = "profile_iamge";
-    public static final String SELF_PROFILE_BANNER = "profile_banner";
+    public static final String USER_TYPE_PROFILE = "profile";
+    public static final String USER_TYPE_OTHER = "other";
+
 
     public static final String BUNDLE_KEY_USERID = "userId";
+    public static final String BUNDLE_KEY_USERTYPE = "userType";
+    public static final String BUNDLE_KEY_USER_SCREENNAME = "userScreenName";
 }

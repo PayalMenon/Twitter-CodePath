@@ -55,12 +55,13 @@ public class UserFavoritesFragment extends Fragment {
         }
     }
 
-    public static UserFavoritesFragment newInstance(long userId) {
+    public static UserFavoritesFragment newInstance(long userId, String screenName) {
 
         UserFavoritesFragment fragment = new UserFavoritesFragment();
 
         Bundle bundle = new Bundle();
         bundle.putLong(Constants.BUNDLE_KEY_USERID, userId);
+        bundle.putString (Constants.BUNDLE_KEY_USER_SCREENNAME, screenName);
 
         fragment.setArguments(bundle);
         return fragment;
@@ -100,7 +101,11 @@ public class UserFavoritesFragment extends Fragment {
     }
 
     private void populateFavoriteList() {
-        mClient.getFavoritesList(getArguments().getLong(Constants.BUNDLE_KEY_USERID),
+
+        long userId = getArguments().getLong(Constants.BUNDLE_KEY_USERID);
+        String screenName = getArguments().getString(Constants.BUNDLE_KEY_USER_SCREENNAME);
+
+        mClient.getFavoritesList(userId, screenName,
                 new JsonHttpResponseHandler() {
 
                     @Override

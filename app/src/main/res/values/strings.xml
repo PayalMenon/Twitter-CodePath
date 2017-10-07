@@ -8,8 +8,8 @@
     <string name="menu_search">Search</string>
     <string name="button_tweet">Tweet</string>
     <string name="tweet_hint">What are you thinking!!</string>
-    <string name="followers"><b>%d</b> Followers</string>
-    <string name="following"><b>%d</b> Followings</string>
+    <string name="followers"><![CDATA[<b>%d</b> Followers]]></string>
+    <string name="following"><![CDATA[<b>%d</b> Following]]></string>
     <string name="page_title_home">HOME</string>
     <string name="page_title_mentions">MENTIONS</string>
     <string name="page_title_tweets">TWEETS</string>

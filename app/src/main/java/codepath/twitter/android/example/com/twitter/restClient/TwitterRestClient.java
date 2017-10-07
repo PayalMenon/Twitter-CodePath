@@ -83,11 +83,10 @@ public class TwitterRestClient extends OAuthBaseClient {
         client.post(apiUrl, params, handler);
     }
 
-    public void getUserInformation(String userId, AsyncHttpResponseHandler handler) {
+    public void getUserInformation(long userId, String screenName, AsyncHttpResponseHandler handler) {
         String apiUrl = getApiUrl("users/show.json");
-
         RequestParams params = new RequestParams();
-
+        params.put("screen_name", screenName);
         client.get(apiUrl, params, handler);
     }
 
@@ -99,11 +98,11 @@ public class TwitterRestClient extends OAuthBaseClient {
         client.get(apiUrl, params, handler);
     }
 
-    public void getUserTimelineInformation(long userId, AsyncHttpResponseHandler handler) {
+    public void getUserTimelineInformation(long userId, String screenName, AsyncHttpResponseHandler handler) {
         String apiUrl = getApiUrl("statuses/user_timeline.json");
 
         RequestParams params = new RequestParams();
-        params.put("user_id", userId);
+        params.put("screen_name", screenName);
 
         client.get(apiUrl, params, handler);
     }
@@ -118,11 +117,11 @@ public class TwitterRestClient extends OAuthBaseClient {
         client.get(apiUrl, params, handler);
     }
 
-    public void getFavoritesList(long userId, AsyncHttpResponseHandler handler) {
+    public void getFavoritesList(long userId, String screenName, AsyncHttpResponseHandler handler) {
         String apiUrl = getApiUrl("favorites/list.json");
 
         RequestParams params = new RequestParams();
-        params.put("user_id", userId);
+        params.put("screen_name", screenName);
 
         client.get(apiUrl, params, handler);
     }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -52,6 +54,19 @@ public class UserFragment extends Fragment {
     @BindView(R.id.tv_user_tagline)
     TextView profileTagline;
 
+    public static UserFragment newInstance(long userId, String userType, String userScreenName) {
+
+        UserFragment fragment = new UserFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putLong(Constants.BUNDLE_KEY_USERID, userId);
+        bundle.putString(Constants.BUNDLE_KEY_USERTYPE, userType);
+        bundle.putString(Constants.BUNDLE_KEY_USER_SCREENNAME, userScreenName);
+
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -68,19 +83,22 @@ public class UserFragment extends Fragment {
 
         mClient = Application.getRestClient();
 
-        getSelfInformation();
+        String userType = getArguments().getString(Constants.BUNDLE_KEY_USERTYPE);
+        if(Constants.USER_TYPE_PROFILE.equals(userType)) {
+            getSelfInformation();
+        } else {
+            getUserInformation();
+        }
     }
 
     private void populateViews(Self self){
         profileName.setText(self.name);
-        profileUsername.setText(self.screenName);
+        String screenName = "@" + self.screenName;
+        profileUsername.setText(screenName);
         profileTagline.setText(self.tagLine);
 
-        String followers = getResources().getString(R.string.followers, self.followers);
-        profileFollowers.setText(followers);
-
-        String followings = getResources().getString(R.string.following, self.followings);
-        profileFollowings.setText(followings);
+        profileFollowers.setText(Html.fromHtml(getString(R.string.followers, self.followers)));
+        profileFollowings.setText(Html.fromHtml(getString(R.string.following, self.followings)));
 
         Glide.with(getActivity()).
                 load(self.profileImageUrl).
@@ -122,6 +140,43 @@ public class UserFragment extends Fragment {
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 Log.d("TwitterApp" , responseString);
+            }
+        });
+    }
+
+    public void getUserInformation() {
+
+        long userId = getArguments().getLong(Constants.BUNDLE_KEY_USERID);
+        String userName = getArguments().getString(Constants.BUNDLE_KEY_USER_SCREENNAME);
+
+        mClient.getUserInformation(userId, userName, new JsonHttpResponseHandler(){
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+                try {
+                    Self self = Self.fromJson(response);
+
+                    populateViews(self);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                Log.d("TwitterApp" , responseString);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
             }
         });
     }

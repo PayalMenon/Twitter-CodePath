@@ -28,6 +28,7 @@ import codepath.twitter.android.example.com.twitter.activity.TweetsActivity;
 import codepath.twitter.android.example.com.twitter.adapter.TweetsAdapter;
 import codepath.twitter.android.example.com.twitter.models.Tweet;
 import codepath.twitter.android.example.com.twitter.restClient.TwitterRestClient;
+import codepath.twitter.android.example.com.twitter.utils.Constants;
 import cz.msebera.android.httpclient.Header;
 
 public class TweetFragment extends Fragment implements TweetsActivity.TweetFragmentListener {
@@ -116,7 +117,9 @@ public class TweetFragment extends Fragment implements TweetsActivity.TweetFragm
 
     @Override
     public void onTweetClicked(int position) {
-
+        ((TweetsActivity) getActivity()).launchUserActivity(mTweetsList.get(position).uid,
+                Constants.USER_TYPE_OTHER,
+                mTweetsList.get(position).user.screenName);
     }
 
     public void refreshTimeLineData(long sinceId, long maxId) {

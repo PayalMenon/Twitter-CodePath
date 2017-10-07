@@ -58,12 +58,13 @@ public class UserDataFragment extends Fragment {
         }
     }
 
-    public static UserDataFragment newInstance(long userId) {
+    public static UserDataFragment newInstance(long userId, String screenName) {
 
         UserDataFragment fragment = new UserDataFragment();
 
         Bundle bundle = new Bundle();
         bundle.putLong(Constants.BUNDLE_KEY_USERID, userId);
+        bundle.putString(Constants.BUNDLE_KEY_USER_SCREENNAME, screenName);
 
         fragment.setArguments(bundle);
         return fragment;
@@ -103,7 +104,10 @@ public class UserDataFragment extends Fragment {
     }
 
     private void populateTimelineData() {
-        mClient.getUserTimelineInformation(getArguments().getLong(Constants.BUNDLE_KEY_USERID),
+        long userId = getArguments().getLong(Constants.BUNDLE_KEY_USERID);
+        String screenName = getArguments().getString(Constants.BUNDLE_KEY_USER_SCREENNAME);
+
+        mClient.getUserTimelineInformation(userId, screenName,
                 new JsonHttpResponseHandler() {
 
             @Override

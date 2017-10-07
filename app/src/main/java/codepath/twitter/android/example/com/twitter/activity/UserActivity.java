@@ -32,6 +32,7 @@ public class UserActivity extends AppCompatActivity {
 
     private UserPagerAdapter mPagerAdapter;
     private static long userId;
+    private static String userScreenName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,21 +41,25 @@ public class UserActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        initializeFragments();
-
         mPagerAdapter = new UserPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mPagerAdapter);
 
         mtabLayout.setupWithViewPager(mViewPager);
 
         if (getIntent() != null) {
+
             userId = getIntent().getLongExtra(Constants.BUNDLE_KEY_USERID, 0);
         }
+
+        initializeFragments();
     }
 
     private void initializeFragments() {
 
-        UserFragment userFragment = new UserFragment();
+        String userType = getIntent().getStringExtra(Constants.BUNDLE_KEY_USERTYPE);
+        userScreenName = getIntent().getStringExtra(Constants.BUNDLE_KEY_USER_SCREENNAME);
+
+        UserFragment userFragment = UserFragment.newInstance(userId, userType, userScreenName);
         FragmentManager manager = getSupportFragmentManager();
         manager.beginTransaction().
                 add(R.id.fl_info_layout, userFragment).
@@ -74,15 +79,15 @@ public class UserActivity extends AppCompatActivity {
             Fragment fragment = null;
             switch(position) {
                 case 0:
-                    fragment = UserDataFragment.newInstance(userId);
+                    fragment = UserDataFragment.newInstance(userId, userScreenName);
                     break;
 
                 case 1:
-                    fragment = new UserFavoritesFragment().newInstance(userId);
+                    fragment = new UserFavoritesFragment().newInstance(userId, userScreenName);
                     break;
 
                 default:
-                    fragment = UserDataFragment.newInstance(userId);
+                    fragment = UserDataFragment.newInstance(userId, userScreenName);
                     break;
             }
 

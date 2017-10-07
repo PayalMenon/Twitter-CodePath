@@ -6,6 +6,7 @@ import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,9 +87,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.TweetsHold
                     }
                 });
 
-        if (tweet.imageList.size() > 0) {
+        if (tweet.imageList != null && tweet.imageList.size() > 0) {
             holder.bannerImageView.setVisibility(View.VISIBLE);
-            System.out.println("imagelist size = " + tweet.imageList.size());
             Glide.with(mContext).
                     load(tweet.imageList.get(0)).
                     asBitmap().
@@ -98,7 +98,7 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.TweetsHold
             holder.bannerImageView.setVisibility(View.GONE);
         }
 
-        holder.tweetContainerView.setOnClickListener(new View.OnClickListener() {
+        holder.profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mListener.onTweetClicked(position);
