@@ -8,4 +8,5 @@
     <color name="colorTextGrey">#757575</color>
     <color name="colorTextRed">#F44336</color>
     <color name="colorToolbarBackground">#EEEEEE</color>
+    <color name="colorToolbarSettingsMenu">#EF5350</color>
 </resources>
