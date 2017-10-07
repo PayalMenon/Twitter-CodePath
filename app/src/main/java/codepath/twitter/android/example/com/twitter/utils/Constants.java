@@ -15,7 +15,12 @@ public class Constants {
     public static final String USER_TYPE_OTHER = "other";
 
 
-    public static final String BUNDLE_KEY_USERID = "userId";
+    public static final String BUNDLE_KEY_USERID = "user_id";
     public static final String BUNDLE_KEY_USERTYPE = "userType";
     public static final String BUNDLE_KEY_USER_SCREENNAME = "userScreenName";
+
+    public static final String INTENT_USER_ID = "user_id";
+    public static final String INTENT_USER_TYPE = "userType";
+    public static final String INTENT_USER_SCREENNAME = "userScreenName";
+    public static final String INTENT_USER_SEARCH_QUERY = "query";
 }

@@ -80,7 +80,7 @@ public class TwitterRestClient extends OAuthBaseClient {
 
         RequestParams params = new RequestParams();
         params.add("q", query);
-        client.post(apiUrl, params, handler);
+        client.get(apiUrl, params, handler);
     }
 
     public void getUserInformation(long userId, String screenName, AsyncHttpResponseHandler handler) {

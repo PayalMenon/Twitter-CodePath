@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -77,6 +78,28 @@ public class TweetsActivity extends AppCompatActivity {
 
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.list_menu, menu);
+
+        MenuItem myActionMenuItem = menu.findItem(R.id.action_search);
+        final SearchView searchView = (SearchView) myActionMenuItem.getActionView();
+
+  //      searchView.setIconifiedByDefault(false);
+//        searchView.setQueryHint(getResources().getString(R.string.search_text));
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                Intent intent = new Intent(TweetsActivity.this, SearchActivity.class);
+                intent.putExtra(Constants.INTENT_USER_SEARCH_QUERY, query);
+                startActivity(intent);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -96,6 +119,7 @@ public class TweetsActivity extends AppCompatActivity {
             TwitterSettings settings = TwitterSettings.getInstance();
             launchUserActivity(settings.getLong(Constants.SELF_USER_ID, 0),
                     Constants.USER_TYPE_PROFILE, null);
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -104,9 +128,9 @@ public class TweetsActivity extends AppCompatActivity {
     public void launchUserActivity(long userId, String userType, String userScreenName) {
 
         Intent userIntent = new Intent(this, UserActivity.class);
-        userIntent.putExtra(Constants.BUNDLE_KEY_USERID, userId);
-        userIntent.putExtra(Constants.BUNDLE_KEY_USERTYPE, userType);
-        userIntent.putExtra(Constants.BUNDLE_KEY_USER_SCREENNAME, userScreenName);
+        userIntent.putExtra(Constants.INTENT_USER_ID, userId);
+        userIntent.putExtra(Constants.INTENT_USER_TYPE, userType);
+        userIntent.putExtra(Constants.INTENT_USER_SCREENNAME, userScreenName);
         startActivity(userIntent);
     }
 
