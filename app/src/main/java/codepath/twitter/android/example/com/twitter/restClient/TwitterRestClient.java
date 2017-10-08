@@ -67,14 +67,6 @@ public class TwitterRestClient extends OAuthBaseClient {
         client.get(apiUrl, params, handler);
     }
 
-    public void postTweet(Tweet tweet, AsyncHttpResponseHandler handler) {
-        String apiUrl = getApiUrl("statuses/update.json");
-
-        RequestParams params = new RequestParams();
-        params.add("status", tweet.body);
-        client.post(apiUrl, params, handler);
-    }
-
     public void searchTweet(String query, AsyncHttpResponseHandler handler) {
         String apiUrl = getApiUrl("search/tweets.json");
 
@@ -132,5 +124,30 @@ public class TwitterRestClient extends OAuthBaseClient {
         params.put("screen_name", screenName);
 
         client.get(apiUrl, params, handler);
+    }
+
+    public void postTweet(Tweet tweet, AsyncHttpResponseHandler handler) {
+        String apiUrl = getApiUrl("statuses/update.json");
+
+        RequestParams params = new RequestParams();
+        params.add("status", tweet.body);
+        client.post(apiUrl, params, handler);
+    }
+
+    public void postRetweet(long tweetId, AsyncHttpResponseHandler handler) {
+        String url = "statuses/retweet/" + tweetId +".json";
+        String apiUrl = getApiUrl(url);
+
+        RequestParams params = new RequestParams();
+        params.put("id", tweetId);
+        client.post(apiUrl, params, handler);
+    }
+
+    public void postFavorited(long tweetId, AsyncHttpResponseHandler handler) {
+        String apiUrl = getApiUrl("favorites/create.json");
+
+        RequestParams params = new RequestParams();
+        params.put("id", tweetId);
+        client.post(apiUrl, params, handler);
     }
 }

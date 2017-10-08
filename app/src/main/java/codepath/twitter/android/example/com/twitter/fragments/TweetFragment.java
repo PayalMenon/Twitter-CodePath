@@ -127,6 +127,16 @@ public class TweetFragment extends Fragment implements TweetsActivity.TweetFragm
                 mTweetsList.get(position).user.screenName);
     }
 
+    @Override
+    public void onTweetFavorited(int position) {
+        ((TweetsActivity) getActivity()).postFavorite(mTweetsList.get(position).uid);
+    }
+
+    @Override
+    public void onTweetRetweeted(int position) {
+        ((TweetsActivity) getActivity()).postRetweet(mTweetsList.get(position).uid);
+    }
+
     public void refreshTimeLineData(long sinceId, long maxId) {
         populateTImelineData(sinceId, maxId);
     }

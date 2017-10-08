@@ -113,6 +113,24 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.TweetsHold
             }
         });
 
+        holder.favortieView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onTweetFavorited(position);
+                holder.favortieView.setTextColor(mContext.getResources().getColor(R.color.colorTextRed));
+                holder.favortieView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_favorited, 0, 0, 0);
+            }
+        });
+
+        holder.retweetView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onTweetRetweeted(position);
+                holder.retweetView.setTextColor(mContext.getResources().getColor(R.color.colorTextRed));
+                holder.retweetView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_retweeted, 0, 0, 0);
+            }
+        });
+
     }
 
     @Override

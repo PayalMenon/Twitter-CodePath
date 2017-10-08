@@ -24,6 +24,7 @@ import android.widget.LinearLayout;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -141,37 +142,54 @@ public class TweetsActivity extends AppCompatActivity {
         startActivity(userIntent);
     }
 
-    public void setTweetFragmentListener(TweetFragmentListener listener) {
+    public void postRetweet(long tweetId) {
 
-        this.mTweetFragmentListener = listener;
-    }
+        TwitterRestClient client = new TwitterRestClient(this);
+        client.postRetweet(tweetId, new JsonHttpResponseHandler() {
 
-    private void setSwipeRefresh() {
-        int colorRed = getResources().getColor(R.color.colorTextRed);
-        mSwipeLayout.setColorSchemeColors(colorRed);
-        mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onRefresh() {
-                FragmentManager manager = getSupportFragmentManager();
-                TweetFragment fragment = (TweetFragment) manager.findFragmentByTag(Constants.TWEET_FRAGMENT);
-                if(fragment.mTweetsList != null && fragment.mTweetsList.size() > 0) {
-                    long sinceId = fragment.mTweetsList.get(0).uid;
-                    fragment.refreshTimeLineData(sinceId, 0);
-                }
-                mSwipeLayout.setRefreshing(false);
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
             }
         });
     }
 
-    private void addTweetFragment() {
+    public void postFavorite(long tweetId) {
 
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
+        TwitterRestClient client = new TwitterRestClient(this);
+        client.postFavorited(tweetId, new JsonHttpResponseHandler() {
 
-        TweetFragment fragment = new TweetFragment();
-        transaction.add(R.id.fc_list, fragment, Constants.TWEET_FRAGMENT);
-        transaction.commit();
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                super.onSuccess(statusCode, headers, response);
+            }
 
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+            }
+
+        });
+    }
+
+    public void setTweetFragmentListener(TweetFragmentListener listener) {
+
+        this.mTweetFragmentListener = listener;
     }
 
     public void addTweet(Tweet tweet) {
@@ -195,6 +213,23 @@ public class TweetsActivity extends AppCompatActivity {
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
                 super.onFailure(statusCode, headers, responseString, throwable);
                 Log.d("TwitterApp", responseString);
+            }
+        });
+    }
+
+    private void setSwipeRefresh() {
+        int colorRed = getResources().getColor(R.color.colorTextRed);
+        mSwipeLayout.setColorSchemeColors(colorRed);
+        mSwipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                FragmentManager manager = getSupportFragmentManager();
+                TweetFragment fragment = (TweetFragment) manager.findFragmentByTag(Constants.TWEET_FRAGMENT);
+                if(fragment.mTweetsList != null && fragment.mTweetsList.size() > 0) {
+                    long sinceId = fragment.mTweetsList.get(0).uid;
+                    fragment.refreshTimeLineData(sinceId, 0);
+                }
+                mSwipeLayout.setRefreshing(false);
             }
         });
     }
@@ -288,5 +323,7 @@ public class TweetsActivity extends AppCompatActivity {
         void addTweetandRefresh(Tweet newTweet);
         void onTweetClicked(int position);
         void onTweetImageClicked(int position);
+        void onTweetFavorited(int position);
+        void onTweetRetweeted(int position);
     }
 }
