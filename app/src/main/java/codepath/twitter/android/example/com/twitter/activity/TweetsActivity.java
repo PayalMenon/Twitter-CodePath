@@ -110,7 +110,7 @@ public class TweetsActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.action_tweet) {
 
             FragmentManager manager = getSupportFragmentManager();
-            NewTweetFragment fragment = new NewTweetFragment();
+            NewTweetFragment fragment = NewTweetFragment.getInstance(null, Constants.NEW_TWEET_MODE_NEW);
 
             fragment.show(manager, Constants.NEW_TWEET_FRAGMENT);
             return true;
@@ -187,12 +187,19 @@ public class TweetsActivity extends AppCompatActivity {
         });
     }
 
+    public void postReplied(Tweet tweet) {
+        FragmentManager manager = getSupportFragmentManager();
+        NewTweetFragment fragment = NewTweetFragment.getInstance(tweet, Constants.NEW_TWEET_MODE_REPLY);
+
+        fragment.show(manager, Constants.NEW_TWEET_FRAGMENT);
+    }
+
     public void setTweetFragmentListener(TweetFragmentListener listener) {
 
         this.mTweetFragmentListener = listener;
     }
 
-    public void addTweet(Tweet tweet) {
+    public void addTweet(Tweet tweet, String type) {
 
         mTweetFragmentListener.addTweetandRefresh(tweet);
 
@@ -202,19 +209,42 @@ public class TweetsActivity extends AppCompatActivity {
         manager.beginTransaction().remove(fragment).commit();
 
         TwitterRestClient client = Application.getRestClient();
-        client.postTweet(tweet, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
-                Log.d("TwitterApp", response.toString());
-            }
 
-            @Override
-            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
-                Log.d("TwitterApp", responseString);
-            }
-        });
+        if (Constants.NEW_TWEET_MODE_NEW.equals(type)) {
+            client.postTweet(tweet, new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    super.onSuccess(statusCode, headers, response);
+                    Log.d("TwitterApp", response.toString());
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                    super.onFailure(statusCode, headers, responseString, throwable);
+                    Log.d("TwitterApp", responseString);
+                }
+            });
+        } else {
+
+            client.postReplied(tweet.user.screenName, tweet.body, new JsonHttpResponseHandler() {
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    super.onSuccess(statusCode, headers, response);
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                    super.onFailure(statusCode, headers, responseString, throwable);
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    super.onFailure(statusCode, headers, throwable, errorResponse);
+                }
+
+            });
+        }
     }
 
     private void setSwipeRefresh() {
@@ -325,5 +355,7 @@ public class TweetsActivity extends AppCompatActivity {
         void onTweetImageClicked(int position);
         void onTweetFavorited(int position);
         void onTweetRetweeted(int position);
+        void onTweetReplied(int position);
+
     }
 }

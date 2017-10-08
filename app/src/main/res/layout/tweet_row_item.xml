@@ -90,6 +90,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_marginLeft="@dimen/tweetMarginLeft"
+                android:drawableLeft="@drawable/ic_reply"
+                android:drawablePadding="@dimen/drawablePadding"
                 android:textColor="@color/colorTextGrey"
                 android:textSize="@dimen/tweet_update_text_size" />
 

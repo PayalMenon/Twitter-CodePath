@@ -137,6 +137,11 @@ public class TweetFragment extends Fragment implements TweetsActivity.TweetFragm
         ((TweetsActivity) getActivity()).postRetweet(mTweetsList.get(position).uid);
     }
 
+    @Override
+    public void onTweetReplied(int position) {
+        ((TweetsActivity) getActivity()).postReplied(mTweetsList.get(position));
+    }
+
     public void refreshTimeLineData(long sinceId, long maxId) {
         populateTImelineData(sinceId, maxId);
     }

@@ -15,4 +15,5 @@
     <string name="page_title_tweets">TWEETS</string>
     <string name="page_title_followers">FOLLOWERS</string>
     <string name="page_title_favorite">FAVORITE</string>
+    <string name="reply_to">Reply to %s</string>
 </resources>

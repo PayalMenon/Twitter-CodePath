@@ -150,4 +150,13 @@ public class TwitterRestClient extends OAuthBaseClient {
         params.put("id", tweetId);
         client.post(apiUrl, params, handler);
     }
+
+    public void postReplied(String screenName, String tweetReply, AsyncHttpResponseHandler handler) {
+        String apiUrl = getApiUrl("direct_messages/new.json");
+
+        RequestParams params = new RequestParams();
+        params.put("text", tweetReply);
+        params.put("screen_name", screenName);
+        client.post(apiUrl, params, handler);
+    }
 }

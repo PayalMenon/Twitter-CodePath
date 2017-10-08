@@ -18,11 +18,20 @@
             android:layout_marginTop="@dimen/newTweetMargin"
             android:scaleType="fitXY" />
 
+        <TextView
+            android:id="@+id/tv_new_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/iv_new_profileImage"
+            android:layout_marginLeft="@dimen/newTweetMargin"
+            android:layout_marginTop="@dimen/newTweetMargin"
+            android:scaleType="fitXY" />
+
         <EditText
             android:id="@+id/et_tweet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/iv_new_profileImage"
+            android:layout_below="@id/tv_new_name"
             android:layout_margin="@dimen/newTweetMargin"
             android:hint="@string/tweet_hint"
             android:textColor="@android:color/black"

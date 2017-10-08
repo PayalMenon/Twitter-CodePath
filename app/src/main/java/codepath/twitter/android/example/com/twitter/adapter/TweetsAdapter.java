@@ -131,6 +131,13 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.TweetsHold
             }
         });
 
+        holder.replyView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onTweetReplied(position);
+            }
+        });
+
     }
 
     @Override

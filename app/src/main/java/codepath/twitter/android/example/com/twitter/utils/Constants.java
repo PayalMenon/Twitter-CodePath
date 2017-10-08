@@ -28,4 +28,6 @@ public class Constants {
     public static final String FOLLOW_TYPE_FOLLOWER = "follower";
     public static final String FOLLOW_TYPE_FOLLOWING = "following";
 
+    public static final String NEW_TWEET_MODE_NEW = "new";
+    public static final String NEW_TWEET_MODE_REPLY = "reply";
 }

@@ -18,6 +18,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
@@ -35,6 +36,7 @@ import codepath.twitter.android.example.com.twitter.models.Self;
 import codepath.twitter.android.example.com.twitter.models.Tweet;
 import codepath.twitter.android.example.com.twitter.models.User;
 import codepath.twitter.android.example.com.twitter.restClient.TwitterRestClient;
+import codepath.twitter.android.example.com.twitter.utils.Constants;
 import cz.msebera.android.httpclient.Header;
 
 public class NewTweetFragment extends DialogFragment {
@@ -45,9 +47,25 @@ public class NewTweetFragment extends DialogFragment {
     EditText mAddNewTweet;
     @BindView(R.id.iv_new_profileImage)
     ImageView mProfileImageView;
+    @BindView(R.id.tv_new_name)
+    TextView mUserName;
 
     private TwitterRestClient mClient;
     private Self mSelfInformation;
+
+    public static NewTweetFragment getInstance(Tweet tweet, String mode) {
+        NewTweetFragment fragment = new NewTweetFragment();
+
+        Bundle args = new Bundle();
+        args.putString("mode", mode);
+        if(tweet != null) {
+            args.putParcelable("tweet", tweet);
+        }
+
+        fragment.setArguments(args);
+
+        return fragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -66,17 +84,40 @@ public class NewTweetFragment extends DialogFragment {
         mClient = Application.getRestClient();
         getSelfInformation();
 
+        if(Constants.NEW_TWEET_MODE_REPLY.equals(getArguments().getString("mode"))) {
+            Tweet tweet = getArguments().getParcelable("tweet");
+            String replyTo = getString(R.string.reply_to, tweet.user.screenName);
+            mUserName.setText(replyTo);
+            mUserName.setVisibility(View.VISIBLE);
+        } else {
+            mUserName.setVisibility(View.GONE);
+        }
+
         mSendTweet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Tweet tweet = new Tweet();
                 tweet.user = new User();
-                tweet.user.name = mSelfInformation.name;
-                tweet.user.screenName = mSelfInformation.screenName;
-                tweet.user.profileImageUrl = mSelfInformation.profileImageUrl;
-                tweet.body = mAddNewTweet.getText().toString();
-                tweet.createdAt = "now";
-                ((TweetsActivity) getActivity()).addTweet(tweet);
+
+                if(Constants.NEW_TWEET_MODE_NEW.equals(getArguments().getString("mode"))) {
+                    tweet.user.name = mSelfInformation.name;
+                    tweet.user.screenName = mSelfInformation.screenName;
+                    tweet.user.profileImageUrl = mSelfInformation.profileImageUrl;
+                    tweet.body = mAddNewTweet.getText().toString();
+                    tweet.createdAt = "now";
+                    ((TweetsActivity) getActivity()).addTweet(tweet, (getArguments().getString("mode")));
+                } else {
+                    Tweet userTweet = getArguments().getParcelable("tweet");
+                    tweet.user.name = mSelfInformation.name;
+                    tweet.user.screenName = mSelfInformation.screenName;
+                    tweet.user.profileImageUrl = mSelfInformation.profileImageUrl;
+                    String body = "@" + userTweet.user.screenName + " " + mAddNewTweet.getText().toString();
+                    tweet.body = body;
+                    tweet.createdAt = "now";
+                    ((TweetsActivity) getActivity()).addTweet(tweet, (getArguments().getString("mode")));
+                }
+
             }
         });
     }
