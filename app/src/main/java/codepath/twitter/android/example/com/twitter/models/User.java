@@ -48,7 +48,9 @@ public class User implements Parcelable{
         user.screenName = json.getString("screen_name");
         user.profileImageUrl = json.getString("profile_image_url");
         user.tagLine = json.getString("description");
-        user.profileBannerImageUrl = json.getString("profile_banner_url");
+        if(json.has("profile_banner_url")) {
+            user.profileBannerImageUrl = json.getString("profile_banner_url");
+        }
 
         return user;
     }
