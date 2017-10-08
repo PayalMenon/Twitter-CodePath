@@ -1,5 +1,6 @@
 package codepath.twitter.android.example.com.twitter.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import codepath.twitter.android.example.com.twitter.R;
 import codepath.twitter.android.example.com.twitter.fragments.UserDataFragment;
 import codepath.twitter.android.example.com.twitter.fragments.UserFavoritesFragment;
 import codepath.twitter.android.example.com.twitter.fragments.UserFragment;
+import codepath.twitter.android.example.com.twitter.models.Tweet;
 import codepath.twitter.android.example.com.twitter.utils.Constants;
 
 public class UserActivity extends AppCompatActivity {
@@ -52,6 +54,13 @@ public class UserActivity extends AppCompatActivity {
         }
 
         initializeFragments();
+    }
+
+    public void launchFollowsActivity(String followType, String screenName) {
+        Intent intent = new Intent(this, FollowActivity.class);
+        intent.putExtra(Constants.INTENT_USER_SCREENNAME, screenName);
+        intent.putExtra(Constants.INTENT_USER_FOLLOW_TYPE, followType);
+        startActivity(intent);
     }
 
     private void initializeFragments() {

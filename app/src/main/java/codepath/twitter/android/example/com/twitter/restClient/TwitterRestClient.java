@@ -107,12 +107,11 @@ public class TwitterRestClient extends OAuthBaseClient {
         client.get(apiUrl, params, handler);
     }
 
-    public void getUserMediaInformation(long userId, AsyncHttpResponseHandler handler) {
-        //String apiUrl = getApiUrl("statuses/home_timeline.json");
-        String apiUrl = getApiUrl("collections/list.json");
+    public void getFollowingList(String screenName, AsyncHttpResponseHandler handler) {
+        String apiUrl = getApiUrl("friends/list.json");
 
         RequestParams params = new RequestParams();
-        params.put("user_id", userId);
+        params.put("screen_name", screenName);
 
         client.get(apiUrl, params, handler);
     }
@@ -126,11 +125,11 @@ public class TwitterRestClient extends OAuthBaseClient {
         client.get(apiUrl, params, handler);
     }
 
-    public void getFollowersList(long userId, AsyncHttpResponseHandler handler) {
+    public void getFollowersList(String screenName, AsyncHttpResponseHandler handler) {
         String apiUrl = getApiUrl("followers/list.json");
 
         RequestParams params = new RequestParams();
-        params.put("user_id", userId);
+        params.put("screen_name", screenName);
 
         client.get(apiUrl, params, handler);
     }

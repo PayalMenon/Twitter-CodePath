@@ -27,6 +27,7 @@ import butterknife.ButterKnife;
 import codepath.twitter.android.example.com.twitter.Application;
 import codepath.twitter.android.example.com.twitter.R;
 import codepath.twitter.android.example.com.twitter.activity.TweetsActivity;
+import codepath.twitter.android.example.com.twitter.activity.UserActivity;
 import codepath.twitter.android.example.com.twitter.models.Self;
 import codepath.twitter.android.example.com.twitter.models.Tweet;
 import codepath.twitter.android.example.com.twitter.models.User;
@@ -91,14 +92,29 @@ public class UserFragment extends Fragment {
         }
     }
 
-    private void populateViews(Self self){
+    private void populateViews(final Self self){
         profileName.setText(self.name);
         String screenName = "@" + self.screenName;
         profileUsername.setText(screenName);
         profileTagline.setText(self.tagLine);
 
         profileFollowers.setText(Html.fromHtml(getString(R.string.followers, self.followers)));
+        profileFollowers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((UserActivity) getActivity()).
+                        launchFollowsActivity(Constants.FOLLOW_TYPE_FOLLOWER, self.screenName);
+            }
+        });
+
         profileFollowings.setText(Html.fromHtml(getString(R.string.following, self.followings)));
+        profileFollowings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((UserActivity) getActivity()).
+                        launchFollowsActivity(Constants.FOLLOW_TYPE_FOLLOWING, self.screenName);
+            }
+        });
 
         Glide.with(getActivity()).
                 load(self.profileImageUrl).

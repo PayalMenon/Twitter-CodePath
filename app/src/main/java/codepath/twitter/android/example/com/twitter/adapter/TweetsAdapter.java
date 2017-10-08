@@ -52,7 +52,8 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.TweetsHold
         Tweet tweet = mTweetsList.get(position);
 
         holder.nameView.setText(tweet.user.name);
-        holder.usernameView.setText(tweet.user.screenName);
+        String userName = "@" + tweet.user.screenName;
+        holder.usernameView.setText(userName);
         holder.dateView.setText(Utils.getDateString(tweet.createdAt));
         holder.tweetView.setText(tweet.body);
 

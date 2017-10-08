@@ -14,7 +14,6 @@ public class Constants {
     public static final String USER_TYPE_PROFILE = "profile";
     public static final String USER_TYPE_OTHER = "other";
 
-
     public static final String BUNDLE_KEY_USERID = "user_id";
     public static final String BUNDLE_KEY_USERTYPE = "userType";
     public static final String BUNDLE_KEY_USER_SCREENNAME = "userScreenName";
@@ -23,4 +22,9 @@ public class Constants {
     public static final String INTENT_USER_TYPE = "userType";
     public static final String INTENT_USER_SCREENNAME = "userScreenName";
     public static final String INTENT_USER_SEARCH_QUERY = "query";
+    public static final String INTENT_USER_FOLLOW_TYPE = "follow_type";
+
+    public static final String FOLLOW_TYPE_FOLLOWER = "follower";
+    public static final String FOLLOW_TYPE_FOLLOWING = "following";
+
 }

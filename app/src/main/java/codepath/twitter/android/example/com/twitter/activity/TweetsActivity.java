@@ -192,13 +192,6 @@ public class TweetsActivity extends AppCompatActivity {
         });
     }
 
-    public interface TweetFragmentListener {
-
-        void addTweetandRefresh(Tweet newTweet);
-        void onTweetClicked(int position);
-
-    }
-
     private void getSelfInformation() {
         TwitterRestClient client = new TwitterRestClient(this);
         client.getAccountInformation(new JsonHttpResponseHandler() {
@@ -281,5 +274,12 @@ public class TweetsActivity extends AppCompatActivity {
 
             return title;
         }
+    }
+
+    public interface TweetFragmentListener {
+
+        void addTweetandRefresh(Tweet newTweet);
+        void onTweetClicked(int position);
+
     }
 }
