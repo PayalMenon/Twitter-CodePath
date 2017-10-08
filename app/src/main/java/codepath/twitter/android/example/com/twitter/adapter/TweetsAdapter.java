@@ -102,6 +102,13 @@ public class TweetsAdapter extends RecyclerView.Adapter<TweetsAdapter.TweetsHold
         holder.profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mListener.onTweetImageClicked(position);
+            }
+        });
+
+        holder.tweetContainerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 mListener.onTweetClicked(position);
             }
         });

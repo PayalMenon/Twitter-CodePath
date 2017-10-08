@@ -23,6 +23,11 @@
     <dimen name="view_pager_padding">5dp</dimen>
     <dimen name="user_media_height">150dp</dimen>
     <dimen name="user_media_width">150dp</dimen>
+    <dimen name="detail_image_height">75dp</dimen>
+    <dimen name="detail_image_width">75dp</dimen>
+    <dimen name="detail_banner_height">200dp</dimen>
+    <dimen name="detail_margin_top">10dp</dimen>
+    <dimen name="detail_tweet_image_height">150dp</dimen>
 
     <dimen name="tagline_text_size">13sp</dimen>
     <dimen name="tweet_text_size">15sp</dimen>

@@ -23,6 +23,7 @@ public class Constants {
     public static final String INTENT_USER_SCREENNAME = "userScreenName";
     public static final String INTENT_USER_SEARCH_QUERY = "query";
     public static final String INTENT_USER_FOLLOW_TYPE = "follow_type";
+    public static final String INTENT_TWEET = "tweet";
 
     public static final String FOLLOW_TYPE_FOLLOWER = "follower";
     public static final String FOLLOW_TYPE_FOLLOWING = "following";

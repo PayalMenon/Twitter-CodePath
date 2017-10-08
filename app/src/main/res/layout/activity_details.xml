@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/fl_details_image_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_detail_background"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/detail_banner_height"
+            android:layout_marginBottom="30dp"
+            android:scaleType="fitXY"/>
+
+        <ImageView
+            android:id="@+id/iv_detail_image"
+            android:layout_width="@dimen/detail_image_width"
+            android:layout_height="@dimen/detail_image_height"
+            android:layout_gravity="bottom|left"
+            android:layout_marginLeft="@dimen/user_margin_left"
+            android:scaleType="fitXY"/>
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tv_detail_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/fl_details_image_layout"
+        android:layout_marginLeft="@dimen/user_margin_left"
+        android:layout_marginTop="@dimen/user_margin_top"
+        android:textSize="@dimen/tweet_text_size"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tv_detail_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/tv_detail_name"
+        android:layout_marginLeft="@dimen/user_margin_left"
+        android:layout_marginTop="@dimen/user_margin_top_small"
+        android:textSize="@dimen/tweet_text_size"
+        android:textColor="@color/colorTextGrey"/>
+
+    <TextView
+        android:id="@+id/tv_detail_body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/tv_detail_username"
+        android:layout_marginLeft="@dimen/user_margin_left"
+        android:layout_marginTop="@dimen/detail_margin_top"
+        android:textSize="@dimen/tweet_text_size"
+        android:textColor="@android:color/black"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_detail_tweet_images"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_detail_body"
+        android:layout_marginTop="@dimen/detail_margin_top"/>
+
+    <TextView
+        android:id="@+id/tv_detail_retweet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/rv_detail_tweet_images"
+        android:layout_marginLeft="@dimen/user_margin_left"
+        android:layout_marginTop="@dimen/detail_margin_top"
+        android:drawableLeft="@drawable/ic_retweet"
+        android:drawablePadding="@dimen/drawablePadding"
+        android:textColor="@color/colorTextGrey"
+        android:textSize="@dimen/tweet_text_size" />
+
+    <TextView
+        android:id="@+id/tv_detail_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rv_detail_tweet_images"
+        android:layout_toRightOf="@id/tv_detail_retweet"
+        android:layout_marginLeft="@dimen/user_margin_left"
+        android:layout_marginTop="@dimen/detail_margin_top"
+        android:drawableLeft="@drawable/ic_favorite"
+        android:drawablePadding="@dimen/drawablePadding"
+        android:textColor="@color/colorTextGrey"
+        android:textSize="@dimen/tweet_text_size" />
+
+</RelativeLayout>

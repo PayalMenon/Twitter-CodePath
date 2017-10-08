@@ -134,6 +134,13 @@ public class TweetsActivity extends AppCompatActivity {
         startActivity(userIntent);
     }
 
+    public void launchDetailsActivity(Tweet tweet) {
+
+        Intent userIntent = new Intent(this, DetailsActivity.class);
+        userIntent.putExtra(Constants.INTENT_TWEET, tweet);
+        startActivity(userIntent);
+    }
+
     public void setTweetFragmentListener(TweetFragmentListener listener) {
 
         this.mTweetFragmentListener = listener;
@@ -280,6 +287,6 @@ public class TweetsActivity extends AppCompatActivity {
 
         void addTweetandRefresh(Tweet newTweet);
         void onTweetClicked(int position);
-
+        void onTweetImageClicked(int position);
     }
 }

@@ -117,6 +117,11 @@ public class TweetFragment extends Fragment implements TweetsActivity.TweetFragm
 
     @Override
     public void onTweetClicked(int position) {
+        ((TweetsActivity) getActivity()).launchDetailsActivity(mTweetsList.get(position));
+    }
+
+    @Override
+    public void onTweetImageClicked(int position) {
         ((TweetsActivity) getActivity()).launchUserActivity(mTweetsList.get(position).uid,
                 Constants.USER_TYPE_OTHER,
                 mTweetsList.get(position).user.screenName);

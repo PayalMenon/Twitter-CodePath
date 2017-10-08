@@ -1,5 +1,8 @@
 package codepath.twitter.android.example.com.twitter.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,7 +14,7 @@ import java.util.Set;
 
 import codepath.twitter.android.example.com.twitter.adapter.MentionsAdapter;
 
-public class Tweet {
+public class Tweet implements Parcelable{
 
     public boolean favorited;
     public boolean retweeted;
@@ -22,6 +25,32 @@ public class Tweet {
     public String body;
     public String createdAt;
     public List<String> imageList;
+
+    public Tweet() {}
+
+    protected Tweet(Parcel in) {
+        favorited = in.readByte() != 0;
+        retweeted = in.readByte() != 0;
+        retweetCount = in.readInt();
+        favoriteCount = in.readInt();
+        uid = in.readLong();
+        body = in.readString();
+        createdAt = in.readString();
+        imageList = in.createStringArrayList();
+        user = in.readParcelable(User.class.getClassLoader());
+    }
+
+    public static final Creator<Tweet> CREATOR = new Creator<Tweet>() {
+        @Override
+        public Tweet createFromParcel(Parcel in) {
+            return new Tweet(in);
+        }
+
+        @Override
+        public Tweet[] newArray(int size) {
+            return new Tweet[size];
+        }
+    };
 
     //deserialize the JSON
     public static Tweet fromJSON(JSONObject jsonObject) throws JSONException {
@@ -66,5 +95,23 @@ public class Tweet {
         }
 
         return tweet;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeByte((byte) (favorited ? 1 : 0));
+        parcel.writeByte((byte) (retweeted ? 1 : 0));
+        parcel.writeInt(retweetCount);
+        parcel.writeInt(favoriteCount);
+        parcel.writeLong(uid);
+        parcel.writeString(body);
+        parcel.writeString(createdAt);
+        parcel.writeStringList(imageList);
+        parcel.writeParcelable(user, i);
     }
 }
